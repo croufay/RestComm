@@ -376,6 +376,10 @@ rcServices.factory('RCommLogsCalls', function($resource) {
   );
 });
 
+
+
+
+
 rcServices.factory('RCommLogsMessages', function($resource) {
   return $resource('/restcomm/2012-04-24/Accounts/:accountSid/SMS/Messages.:format', {
       accountSid: '@accountSid',
@@ -513,3 +517,6 @@ rcServices.factory('RCommJMX', function($resource) {
     }
   );
 });
+
+
+

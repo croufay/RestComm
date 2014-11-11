@@ -19,7 +19,7 @@
  */
 package org.mobicents.servlet.restcomm.http;
 
-import static javax.ws.rs.core.MediaType.*;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

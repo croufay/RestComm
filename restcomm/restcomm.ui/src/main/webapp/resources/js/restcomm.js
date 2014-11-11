@@ -8,7 +8,8 @@ var rcMod = angular.module('rcApp', [
   'ui.bootstrap',
   'angular-md5',
   'loadingOnAJAX',
-  'ui.bootstrap.modal.dialog'
+  'ui.bootstrap.modal.dialog',
+  'nvd3'
 ]);
 
 rcMod.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {

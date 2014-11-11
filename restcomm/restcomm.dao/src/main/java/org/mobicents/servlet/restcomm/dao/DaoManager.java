@@ -52,9 +52,10 @@ public interface DaoManager extends Configurable, LifeCycle {
 
     ShortCodesDao getShortCodesDao();
 
-    SmsMessagesDao getSmsMessagesDao();
+SmsMessagesDao getSmsMessagesDao();
+   StatisticsDao getStatisticsDao();
 
-    TranscriptionsDao getTranscriptionsDao();
+TranscriptionsDao getTranscriptionsDao();
 
     GatewaysDao getGatewaysDao();
 }

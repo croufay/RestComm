@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  @author charles.roufay@telestax.com(Charles Roufay)
+-->
+<mapper namespace="org.mobicents.servlet.sip.restcomm.dao.StatisticsDao">
+
+  
+  
+  <select id="Toptencallers" parameterType="string" resultType="hashmap">
+    
+    SELECT "recipient", "sender", CAST(count("recipient") as CHAR ) as "numberofcalls"             
+    FROM "restcomm_call_detail_records"
+    GROUP BY "sender", "recipient" 
+    LIMIT 10;
+  </select>
+  
+  <select id="Totalcallslast24hours" parameterType="string" resultType="string">
+    
+    SELECT COUNT(*) as  totalcallslast24hours
+    FROM   "restcomm_call_detail_records"
+    WHERE "date_created" > DATE_SUB (CURRENT_TIMESTAMP, INTERVAL 24 HOUR );
+  </select>
+
+  <select id="Toptensendersms" parameterType="string" resultType="hashmap">
+    SELECT  "sender", "recipient",  CAST(count("recipient") as CHAR ) as "numberofsms"
+    FROM "restcomm_sms_messages"
+    GROUP BY "recipient", "sender"
+    ORDER BY "numberofsms" DESC
+    LIMIT 10;
+      </select>
+    
+ <select id="Totalsmslast24hours" parameterType="string" resultType="string">
+    SELECT COUNT(*) as  totalsmslast24hours
+    FROM   "restcomm_sms_messages"
+    WHERE "date_created" > DATE_SUB (CURRENT_TIMESTAMP, INTERVAL 24 HOUR );
+  </select>
+
+
+ <select id="Numberofcallsperdaylast30days" parameterType="string" resultType="hashmap">
+    SELECT  CAST(EXTRACT(DAY  FROM "date_created")as CHAR) as "day", EXTRACT(MONTH_NAME   FROM "date_created") as "month_name",  EXTRACT(DAY_NAME  from "date_created") as "day_name", CAST(count("date_created") as CHAR) as "number_of_calls_per_day"
+    FROM "restcomm_call_detail_records"
+    WHERE (TIMESTAMPDIFF ( SQL_TSI_DAY, "date_created", now()) &lt; 30)
+    GROUP BY EXTRACT(DAY FROM "date_created"), EXTRACT(MONTH_NAME  FROM  "date_created") , EXTRACT(DAY_NAME FROM "date_created")
+    ORDER BY EXTRACT(DAY FROM "date_created") ASC;
+  </select>
+
+ <select id="Numberofcallspermonthlast12months" parameterType="string" resultType="hashmap">
+   SELECT CAST(EXTRACT(MONTH   FROM "date_created")as CHAR) as "month",  EXTRACT(MONTH_NAME   FROM "date_created") as "month_name", CAST(EXTRACT(YEAR   FROM "date_created")as CHAR) as "year",  CAST(count("date_created") as CHAR)as "number_of_calls_per_month"
+   FROM "restcomm_call_detail_records"
+   Where (TIMESTAMPDIFF ( SQL_TSI_MONTH, "date_created", now() ) &lt; 12)
+   GROUP BY EXTRACT(YEAR   FROM "date_created") , EXTRACT(MONTH FROM "date_created") , EXTRACT(MONTH_NAME  FROM  "date_created") 
+   ORDER BY EXTRACT(MONTH FROM "date_created")  ASC ;
+  </select>
+  
+ <select id="Numberofsmsperdaylast30days" parameterType="string" resultType="hashmap">
+  SELECT  CAST(EXTRACT(DAY  FROM "date_created")as CHAR) as "day", EXTRACT(MONTH_NAME FROM "date_created") as "month_name",  extract(DAY_NAME  from "date_created") as "day_name", CAST(count("date_created") as CHAR) as "number_of_sms_per_day"
+  FROM "restcomm_sms_messages"
+  Where (TIMESTAMPDIFF ( SQL_TSI_DAY, "date_created", now() ) &lt; 30)
+  GROUP BY EXTRACT(DAY FROM "date_created"), EXTRACT(MONTH_NAME  FROM  "date_created") , EXTRACT(DAY_NAME FROM "date_created")
+   ORDER BY EXTRACT(DAY FROM "date_created") ASC;
+ </select> 
+  
+ <select id="Numberofsmspermonthlast12months" parameterType="string" resultType="hashmap">
+    SELECT CAST(EXTRACT(MONTH   FROM "date_created")as CHAR) as "month",  EXTRACT(MONTH_NAME   FROM "date_created") as "month_name", CAST(EXTRACT(YEAR   FROM "date_created")as CHAR) as "year",  CAST(count("date_created")as CHAR) as "number_of_sms_per_month"
+    FROM "restcomm_sms_messages"
+    Where (TIMESTAMPDIFF ( SQL_TSI_MONTH, "date_created", now() ) &lt; 12)
+    GROUP BY EXTRACT(YEAR   FROM "date_created") , EXTRACT(MONTH FROM "date_created") , EXTRACT(MONTH_NAME  FROM  "date_created") 
+    ORDER BY EXTRACT(MONTH FROM "date_created")  ASC ;
+  </select>
+ 
+
+</mapper>

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+
 <html ng-app="rcApp">
     <head>
+
+<meta charset="utf-8">  <!-- it's important for d3.js -->
+
         <title>RestComm</title>
 
         <link rel="icon" type="image/png" href="resources/img/favicon.png">
@@ -8,6 +12,7 @@
         <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
         <link rel="stylesheet" href="lib/animate/animate.css" />
         <link rel="stylesheet" href="resources/css/restcomm.css" />
+	<link rel="stylesheet" href="lib/bower_components/nvd3/nv.d3.css">
         <style type="text/css">
 
             .sidebar-nav {
@@ -88,13 +93,23 @@
         </style>
 
         <!-- Angular does some things with CSS so it's good to load this in the head -->
+
+
+
         <script type="text/javascript" src="lib/jquery/jquery.js"></script>
-        <script type="text/javascript" src="lib/angular/angular.min.js"></script>
-        <script type="text/javascript" src="lib/angular-route/angular-route.min.js"></script>
+     	<script type="text/javascript" src="lib/angular/angular.js"></script> 
+	<script type="text/javascript" src="lib/angular-route/angular-route.min.js"></script>
         <script type="text/javascript" src="lib/angular-resource/angular-resource.min.js"></script>
         <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+       
+	<!--<script src="/lib/bower_components/angular/angular.js"></script>-->
+	<script src="lib/bower_components/d3/d3.js"></script>
+	<script src="lib/bower_components/nvd3/nv.d3.js"></script>
+	<script src="lib/bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+
         <script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script type="text/javascript" src="lib/http-auth-interceptor/http-auth-interceptor.js"></script>
+
 
         <script type="text/javascript" src="resources/js/restcomm.js"></script>
         <script type="text/javascript" src="resources/js/controllers.js"></script>
@@ -102,7 +117,7 @@
         <script type="text/javascript" src="resources/js/controllers/navbar.js"></script>
         <script type="text/javascript" src="resources/js/controllers/login.js"></script>
         <script type="text/javascript" src="resources/js/controllers/dashboard.js"></script>
-        <script type="text/javascript" src="resources/js/controllers/logs-calls.js"></script>
+ 	<script type="text/javascript" src="resources/js/controllers/logs-calls.js"></script>
         <script type="text/javascript" src="resources/js/controllers/logs-messages.js"></script>
         <script type="text/javascript" src="resources/js/controllers/logs-notifications.js"></script>
         <script type="text/javascript" src="resources/js/controllers/logs-recordings.js"></script>
@@ -113,6 +128,9 @@
         <script type="text/javascript" src="resources/js/services.js"></script>
         <script type="text/javascript" src="resources/js/filters.js"></script>
         <script type="text/javascript" src="resources/js/directives.js"></script>
+
+
+
     </head>
     <body>
         <div id="wrap">
@@ -127,6 +145,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="MenuCtrl">
                 <div class="container-fluid">
                         <div class="navbar-header">

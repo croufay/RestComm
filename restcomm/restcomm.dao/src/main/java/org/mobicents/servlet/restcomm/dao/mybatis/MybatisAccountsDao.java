@@ -19,6 +19,18 @@
  */
 package org.mobicents.servlet.restcomm.dao.mybatis;
 
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.readAccountStatus;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.readAccountType;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.readDateTime;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.readSid;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.readString;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.readUri;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.writeAccountStatus;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.writeAccountType;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.writeDateTime;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.writeSid;
+import static org.mobicents.servlet.restcomm.dao.DaoUtils.writeUri;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,14 +39,11 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import org.joda.time.DateTime;
-
-import static org.mobicents.servlet.restcomm.dao.DaoUtils.*;
+import org.mobicents.servlet.restcomm.annotations.concurrency.ThreadSafe;
 import org.mobicents.servlet.restcomm.dao.AccountsDao;
 import org.mobicents.servlet.restcomm.entities.Account;
 import org.mobicents.servlet.restcomm.entities.Sid;
-import org.mobicents.servlet.restcomm.annotations.concurrency.ThreadSafe;
 
 /**
  * @author quintana.thomas@gmail.com (Thomas Quintana)
@@ -98,6 +107,7 @@ public final class MybatisAccountsDao implements AccountsDao {
     public List<Account> getAccounts(final Sid accountSid) {
         final SqlSession session = sessions.openSession();
         try {
+
             final List<Map<String, Object>> results = session.selectList(namespace + "getAccounts", accountSid.toString());
             final List<Account> accounts = new ArrayList<Account>();
             if (results != null && !results.isEmpty()) {

@@ -25,10 +25,9 @@ import java.io.Reader;
 import java.util.Properties;
 
 import org.apache.commons.configuration.Configuration;
-
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
+import org.mobicents.servlet.restcomm.annotations.concurrency.ThreadSafe;
 import org.mobicents.servlet.restcomm.dao.AccountsDao;
 import org.mobicents.servlet.restcomm.dao.AnnouncementsDao;
 import org.mobicents.servlet.restcomm.dao.ApplicationsDao;
@@ -45,8 +44,8 @@ import org.mobicents.servlet.restcomm.dao.RecordingsDao;
 import org.mobicents.servlet.restcomm.dao.RegistrationsDao;
 import org.mobicents.servlet.restcomm.dao.ShortCodesDao;
 import org.mobicents.servlet.restcomm.dao.SmsMessagesDao;
+import org.mobicents.servlet.restcomm.dao.StatisticsDao;
 import org.mobicents.servlet.restcomm.dao.TranscriptionsDao;
-import org.mobicents.servlet.restcomm.annotations.concurrency.ThreadSafe;
 
 /**
  * @author quintana.thomas@gmail.com (Thomas Quintana)
@@ -67,6 +66,7 @@ public final class MybatisDaoManager implements DaoManager {
     private RecordingsDao recordingsDao;
     private ShortCodesDao shortCodesDao;
     private SmsMessagesDao smsMessagesDao;
+    private StatisticsDao statisticsDao;
     private TranscriptionsDao transcriptionsDao;
     private GatewaysDao gatewaysDao;
     private AnnouncementsDao announcementsDao;
@@ -151,6 +151,10 @@ public final class MybatisDaoManager implements DaoManager {
     }
 
     @Override
+    public StatisticsDao getStatisticsDao() {
+        return statisticsDao;
+    }
+    @Override
     public TranscriptionsDao getTranscriptionsDao() {
         return transcriptionsDao;
     }
@@ -203,7 +207,10 @@ public final class MybatisDaoManager implements DaoManager {
         recordingsDao = new MybatisRecordingsDao(sessions);
         shortCodesDao = new MybatisShortCodesDao(sessions);
         smsMessagesDao = new MybatisSmsMessagesDao(sessions);
+        statisticsDao = new MybatisStatisticsDao(sessions);
         transcriptionsDao = new MybatisTranscriptionsDao(sessions);
         gatewaysDao = new MybatisGatewaysDao(sessions);
     }
+
+
 }
